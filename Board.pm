@@ -48,7 +48,7 @@ Anthony DeLorenzo E<lt>ajdelore@cpan.orgE<gt>.
 
 =cut
 
-$VERSION = '1.0';
+$VERSION = '1.01';
 
 use strict;
 
@@ -81,12 +81,9 @@ sub new {
   # uses fisher-yates shuffle
   # taken from perlfaq4, ++ to the perl community
 
-  my $ref = \@board;
-
-  for (my $i = @$ref; --$i; ) {
+  for (my $i = scalar(@board); --$i; ) {
     my $j = int rand ($i+1);
-    next if $i == $j;
-    @$ref[$i,$j] = @$ref[$j,$i];
+    @board[$i,$j] = @board[$j,$i];
   }
 
   $self->{BOARD} = \@board;
