@@ -4,3 +4,4 @@ MANIFEST
 Makefile.PL
 README
 test.pl
+examples/boggle.cgi

@@ -48,7 +48,7 @@ Anthony DeLorenzo E<lt>ajdelore@cpan.orgE<gt>.
 
 =cut
 
-$VERSION = '1.01';
+$VERSION = '1.02';
 
 use strict;
 
@@ -95,7 +95,7 @@ sub new {
 sub as_formatted_string {
   my $self = shift;
   my @board = @{$self->{BOARD}};
-  map { $_ =~ s/Q/Qu/ } @board;
+  s/Q/Qu/ foreach (@board); 
   return sprintf (
     ( "%-3s%-3s%-3s%-3s\n" .
       "%-3s%-3s%-3s%-3s\n" .
