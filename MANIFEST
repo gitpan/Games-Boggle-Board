@@ -5,3 +5,5 @@ Makefile.PL
 README
 test.pl
 examples/boggle.cgi
+examples/boggle.template
+examples/boggle-words.template

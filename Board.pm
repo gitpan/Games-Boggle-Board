@@ -48,7 +48,7 @@ Anthony DeLorenzo E<lt>ajdelore@cpan.orgE<gt>.
 
 =cut
 
-$VERSION = '1.02';
+$VERSION = '1.03';
 
 use strict;
 

@@ -3,6 +3,12 @@
 # Example script using Games::Boggle::Board
 # Play a game of cgi-Boggle
 
+# I have replaced my dictionary file with the Shorter 
+# Oxford, available at
+# http://www.puzzlers.org/secure/wordlists/dictinfo.php
+
+-e 'soed.txt' ? my $dict = 'soed.txt' : my $dict = '';
+
 use strict;
 
 use HTML::Template;
@@ -47,7 +53,7 @@ if ( param('board') && param('words')) {
     
     if ( length($word)>2 
          && $board->has_word($word) 
-         ## && grep( /^$word$/, `look $word`)
+         && grep( /^$word$/, `look $word $dict`)
     ) { 
         push (@good, {word=>$word}); 
         $total_score += $scores{length($word)};
@@ -77,35 +83,14 @@ else {
 
 print header, $template->output();
 
+# ++ to merlyn on perlmonks for re-write of this function 
+
 sub build_board_array {
   my @board = split //, shift;
-  s/Q/Qu/ foreach (@board);
-  @board = ( 
-    { line => [
-      { letter => $board[0] },
-      { letter => $board[1] }, 
-      { letter => $board[2] }, 
-      { letter => $board[3] } 
-    ]},
-    { line => [
-      { letter => $board[4] },
-      { letter => $board[5] }, 
-      { letter => $board[6] }, 
-      { letter => $board[7] } 
-    ]},
-    { line => [
-      { letter => $board[8] },
-      { letter => $board[9] }, 
-      { letter => $board[10] }, 
-      { letter => $board[11] } 
-    ]},
-    { line => [
-      { letter => $board[12] },
-      { letter => $board[13] }, 
-      { letter => $board[14] }, 
-      { letter => $board[15] } 
-    ]}
-  );
+  s/Q/Qu/ foreach @board;
+  @board = map {
+    +{ line => [map +{ letter => $_ }, splice @board, 0, 4 ]};
+  } 1..4;
   return \@board;
 }
 
